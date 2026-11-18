@@ -38,6 +38,10 @@ namespace Service
         // Set to -1 to use HW-reported delay.
         // HW needs exactly 20ms to measure. Confirmed by diagnostics:
         // <20ms returns garbage, 20ms+ returns correct values.
-        public const int CaptureDelayMs = 20;
+        // TEST BUILD: 35ms. On this TV a still picture still produces frame-to-frame jumps in
+        // single sample points at 20ms (measured on the ESP32: one point 58 -> 32 -> 0 while
+        // four points stayed constant to +-0.3), which looks like a block read before its
+        // position has settled. Costs frame rate: 14 points / 2 blocks x 35ms ~= 4 fps.
+        public const int CaptureDelayMs = 35;
     }
 }
